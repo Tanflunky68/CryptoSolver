@@ -8,25 +8,10 @@ _________                          __           _________        .__
                                                                                              
 '''
 
-
-
 #Cryptographic functions
-def numbers_to_ascii(input_array):
+def numbers_to_ascii():
     ascii_codes = []
-
-    for num in input_array:
-        if 0 <= num <= 127:
-            ascii_code = chr(num)
-            ascii_codes.append(ascii_code)
-        else:
-            print(f"Input number {num} is out of the valid ASCII range (0-127). Skipping...")
-
-    return ascii_codes
-
-
-# Define functions for each menu option
-def option1():
-    print("")
+    result_string = ""
     input_str = input("Enter the array in the format [99, 114, 121, 112, ...]: ")
     
     # Extract numbers from the input string using eval
@@ -36,16 +21,38 @@ def option1():
         print("Invalid input format. Please use the format [99, 114, 121, 112, ...]")
         exit()
 
-    ascii_result = numbers_to_ascii(input_array)
+    for num in input_array:
+        if 0 <= num <= 127:
+            ascii_code = chr(num)
+            ascii_codes.append(ascii_code)
+        else:
+            print(f"Input number {num} is out of the valid ASCII range (0-127). Skipping...")
+    print("")
 
-    if ascii_result:
-        ascii_string = "".join(ascii_result)
+    for value in ascii_codes:
+        result_string += str(value)
+
+    if input_array:
+        print_result_pretty(result_string)
+
+
+
+def write_result_file(result):
+    # Define the file path and name
+    file_path = "CryptoSolver_results.txt"
+
+    # Open the file in write mode ('w')
+    with open(file_path, 'w') as file:
+        file.write(result)
+
+def print_result_pretty(result):
         print("")
         print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
-        print("ASCII Codes:", ascii_string)
+        print("ASCII Codes:", result)
         print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
         print("")
         print("")
+        write_result_file(result)
 
         print("Chose an option")
         print("1. Go back to the main menu")
@@ -53,10 +60,9 @@ def option1():
         choice = input("Enter your choice: ")      
         if choice == "1":
             main_menu("0")
-        elif choice == "2":
-            main_menu("Y")
 
 
+# Define functions for each menu option
 def option2():
     print("You selected Option 2")
 
@@ -68,36 +74,42 @@ def option4():
 
 # Define the main menu function
 def main_menu(choice):
+
     if choice is "Y":
-        return
+        print(choice)
     else:
         while True:
             if choice is "Y":
                 break
+            else:    
+                print(ascii_art)
+                print("Main Menu:")
+                print("1. Takes an array of numbers and converts them to a string")
+                print("2. Hexadecimal to string")
+                print("3. Base64 to string")
+                print("3. Base64 to string")                
+                print("4. Option 4")
+                print("Enter Y to exit")
 
-            print(ascii_art)
-            print("Main Menu:")
-            print("1. Takes an array of numbers and converts them to a string")
-            print("2. Hexadecimal to string")
-            print("3. Base64 to string")
-            print("4. Option 4")
-            print("Enter Y to exit")
+                choice = input("Enter your choice: ")
 
-            choice = input("Enter your choice: ")
-
-            if choice == "1":
-                option1()
-            elif choice == "2":
-                option2()
-            elif choice == "3":
-                option3()
-            elif choice == "4":
-                option4()
-            elif choice == "Y":
-                print("Exiting the program. Goodbye!")
-                break
-            else:
-                print("Invalid choice. Please select a valid option.")
+                if choice == "1":
+                    numbers_to_ascii()
+                    break
+                elif choice == "2":
+                    option2()
+                    break
+                elif choice == "3":
+                    option3()
+                    break
+                elif choice == "4":
+                    option4()
+                    break
+                elif choice == "Y":
+                    print("Exiting the program. Goodbye!")
+                    break
+                else:
+                    print("Invalid choice. Please select a valid option.")
 
 if __name__ == "__main__":
     main_menu("0")
