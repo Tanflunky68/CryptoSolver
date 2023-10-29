@@ -1,3 +1,6 @@
+import base64
+
+
 ascii_art = '''
 _________                          __           _________        .__                         
 \_   ___ \_______  ___.__.______ _/  |_  ____  /   _____/  ____  |  | ___  __  ____ _______  
@@ -37,6 +40,26 @@ def numbers_to_ascii():
 
 
 
+def hex_to_base64():
+    hex_value = input("Enter a hex value: ")
+    base64_string = ""
+    decoded_bytes = ""
+    
+    try:
+        # Convert the hexadecimal string to bytes and then decode it as a string
+        decoded_bytes = bytes.fromhex(hex_value)
+        base64_string = base64.b64encode(decoded_bytes).decode('utf-8')
+
+        print(base64_string)
+        print_result_pretty(base64_string) 
+    except ValueError:
+        return "Invalid hexadecimal input"
+    
+
+
+
+
+#Commun functions used after every cryptographic process
 def write_result_file(result):
     # Define the file path and name
     file_path = "CryptoSolver_results.txt"
@@ -62,15 +85,6 @@ def print_result_pretty(result):
             main_menu("0")
 
 
-# Define functions for each menu option
-def option2():
-    print("You selected Option 2")
-
-def option3():
-    print("You selected Option 3")
-
-def option4():
-    print("You selected Option 4")
 
 # Define the main menu function
 def main_menu(choice):
@@ -85,10 +99,7 @@ def main_menu(choice):
                 print(ascii_art)
                 print("Main Menu:")
                 print("1. Takes an array of numbers and converts them to a string")
-                print("2. Hexadecimal to string")
-                print("3. Base64 to string")
-                print("3. Base64 to string")                
-                print("4. Option 4")
+                print("2. Hexadecimal to Base64")
                 print("Enter Y to exit")
 
                 choice = input("Enter your choice: ")
@@ -97,19 +108,19 @@ def main_menu(choice):
                     numbers_to_ascii()
                     break
                 elif choice == "2":
-                    option2()
+                    hex_to_base64()
                     break
                 elif choice == "3":
-                    option3()
                     break
                 elif choice == "4":
-                    option4()
                     break
                 elif choice == "Y":
                     print("Exiting the program. Goodbye!")
                     break
                 else:
                     print("Invalid choice. Please select a valid option.")
+
+
 
 if __name__ == "__main__":
     main_menu("0")
