@@ -1,4 +1,5 @@
 import base64
+from Crypto.Util.number import *
 
 
 ascii_art = '''
@@ -50,13 +51,23 @@ def hex_to_base64():
         decoded_bytes = bytes.fromhex(hex_value)
         base64_string = base64.b64encode(decoded_bytes).decode('utf-8')
 
-        print(base64_string)
         print_result_pretty(base64_string) 
     except ValueError:
         return "Invalid hexadecimal input"
     
 
+def bytes_to_ascii():
+    bytes_value = input("Enter the bytes:")
+    int_value = int(bytes_value)
+    print_result_pretty(int_value) 
 
+
+def integer_to_ascii():
+    long_value = input("Enter the bytes:")
+    decoded_bytes = int(long_value)
+    result = long_to_bytes(decoded_bytes)
+    
+    print_result_pretty(str(result)) 
 
 
 #Commun functions used after every cryptographic process
@@ -100,6 +111,8 @@ def main_menu(choice):
                 print("Main Menu:")
                 print("1. Takes an array of numbers and converts them to a string")
                 print("2. Hexadecimal to Base64")
+                print("3. Bytes to ASCII")
+                print("4. Long to Bytes")
                 print("Enter Y to exit")
 
                 choice = input("Enter your choice: ")
@@ -111,8 +124,10 @@ def main_menu(choice):
                     hex_to_base64()
                     break
                 elif choice == "3":
+                    bytes_to_ascii()
                     break
                 elif choice == "4":
+                    integer_to_ascii()
                     break
                 elif choice == "Y":
                     print("Exiting the program. Goodbye!")
