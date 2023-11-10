@@ -1,6 +1,6 @@
 import base64
 from Crypto.Util.number import *
-
+from operator import xor
 
 ascii_art = '''
 _________                          __           _________        .__                         
@@ -70,6 +70,28 @@ def integer_to_ascii():
     print_result_pretty(str(result)) 
 
 
+def xor_string_key():
+    string = input("Enter the string:")
+    key = int(input("Enter the int to XOR against:"))
+    # Convert the integer to binary representation
+    binary_key = bin(key)[2:]
+    answer = ""
+    
+    print(binary_key)
+    for letter in string:
+        new_binary_key = "0"
+        string_binary = ''.join(format(i, '08b') for i in bytearray(letter, encoding ='utf-8'))
+        new_binary_key = binary_key
+        # Ensure that the binary key has the same length as the input string
+        while len(new_binary_key) < len(string_binary):
+            new_binary_key = '0' + new_binary_key
+
+        result = ''.join(chr(ord(char) ^ int(bit)) for char, bit in zip(string_binary, new_binary_key))
+        answer = answer + result
+   
+    print_result_pretty(str(answer)) 
+    
+
 #Commun functions used after every cryptographic process
 def write_result_file(result):
     # Define the file path and name
@@ -113,6 +135,7 @@ def main_menu(choice):
                 print("2. Hexadecimal to Base64")
                 print("3. Bytes to ASCII")
                 print("4. Long to Bytes")
+                print("5. XOR a string and an int")
                 print("Enter Y to exit")
 
                 choice = input("Enter your choice: ")
@@ -129,6 +152,21 @@ def main_menu(choice):
                 elif choice == "4":
                     integer_to_ascii()
                     break
+                elif choice == "5":
+                    xor_string_key()
+                    break
+                elif choice == "6":
+                    break
+                elif choice == "7":
+                    break   
+                elif choice == "8":
+                    break      
+                elif choice == "9":
+                    break                              
+                elif choice == "10":
+                    break                              
+                elif choice == "11":
+                    break                                                                                                                                 
                 elif choice == "Y":
                     print("Exiting the program. Goodbye!")
                     break
